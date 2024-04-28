@@ -1,3 +1,5 @@
+package com.econeigigobhoood.sgb;
+
 //interface da Biblioteca
 public interface Cadastro {
     void adicionarLivro(int Idlivro, String nome, String autor, int paginas);
