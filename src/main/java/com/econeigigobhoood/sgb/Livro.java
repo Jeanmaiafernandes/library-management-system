@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import com.econeigigobhoood.sgb.Model.Biblioteca;
+
 import java.sql.ResultSet;
 
 public class Livro extends Biblioteca {
