@@ -18,6 +18,11 @@ public class Livro extends Biblioteca {
     private String Autor;
     private int Paginas;
 
+
+    public Livro() {
+     
+    }
+
     public Livro(int Idlivro, String Nome, String Autor, int Paginas) {
         this.Idlivro = Idlivro;
         this.Nome = Nome;
@@ -144,5 +149,10 @@ public class Livro extends Biblioteca {
         } catch (SQLException e) {
             System.out.println("Erro ao devolver livro: " + e.getMessage());
         }
+    }
+    //Chamar no Momento de inicialização para Criar a Tabelas livros
+    public void table(){
+      super.table();
+
     }
 }
