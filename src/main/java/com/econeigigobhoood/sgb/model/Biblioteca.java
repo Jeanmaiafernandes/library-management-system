@@ -1,4 +1,4 @@
-package com.econeigigobhoood.sgb;
+package com.econeigigobhoood.sgb.model;
 
 import java.util.ArrayList;
 import java.util.List;

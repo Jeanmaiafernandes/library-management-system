@@ -1,16 +1,13 @@
-package com.econeigigobhoood.sgb;
+package com.econeigigobhoood.sgb.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
-import com.econeigigobhoood.sgb.Model.Biblioteca;
-
 import java.sql.ResultSet;
 
 public class Livro extends Biblioteca {
-    
+
     // Conecta com o banco de Dados
     private String url = "jdbc:mysql://localhost:3306/nome_do_banco";
     private String usuario = "usuario";
@@ -62,7 +59,7 @@ public class Livro extends Biblioteca {
         this.Paginas = Paginas;
     }
 
-    // Inserir Livros 
+    // Inserir Livros
     public boolean adicionarLivro() {
         try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
             // SQL para inserção
@@ -85,7 +82,7 @@ public class Livro extends Biblioteca {
         }
     }
 
-    // Listar Livros 
+    // Listar Livros
     public void listarLivros() {
         try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
             String SQL = "SELECT IdLivro, Nome, Autor, Paginas FROM Livro";

@@ -1,6 +1,9 @@
-package com.econeigigobhoood.sgb;
+package com.econeigigobhoood.sgb.view;
 
 import java.util.Scanner;
+
+import com.econeigigobhoood.sgb.controller.Misc;
+
 import java.util.ArrayList;
 
 public class MainMenu {
@@ -46,7 +49,7 @@ public class MainMenu {
 
         switch (op) {
             case 1:
-                Utils.clearScreen();
+                Misc.clearScreen();
                 bookBorrow();
                 break;
         

@@ -1,4 +1,4 @@
-package com.econeigigobhoood.sgb;
+package com.econeigigobhoood.sgb.model;
 
 //interface da Biblioteca
 public interface Cadastro {
