@@ -2,7 +2,7 @@ package com.econeigigobhoood.sgb.controller;
 
 public class Misc {
     
-    public static final String SCANNER_INPUT_ERROR = "ERROR: Unable to set input on scannerInput: baseMsg.";
+    public static final String SCANNER_INPUT_ERROR = "ERROR: Unable to set user input on Scanner.";
     public static final String DATABASE_CONNECTION_ERROR = "ERROR: Unable to connect to the database.";
     public static final String FILE_NOT_FOUND_ERROR = "ERROR: File not found.";
     
