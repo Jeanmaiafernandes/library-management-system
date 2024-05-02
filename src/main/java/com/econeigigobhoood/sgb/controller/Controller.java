@@ -1,4 +1,4 @@
-package com.econeigigobhoood.sgb.Controller;
+package com.econeigigobhoood.sgb.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,8 +11,8 @@ import javax.swing.table.DefaultTableModel;
 
 
 
-import com.econeigigobhoood.sgb.Model.Livro;
-import com.econeigigobhoood.sgb.Model.Tables;
+import com.econeigigobhoood.sgb.model.Livro;
+import com.econeigigobhoood.sgb.model.Tables;
 
 
 public  class Controller implements Tables {

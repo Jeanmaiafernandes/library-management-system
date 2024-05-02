@@ -1,4 +1,4 @@
-package com.econeigigobhoood.sgb.Model;
+package com.econeigigobhoood.sgb.model;
 
 public class Livro   {
     
