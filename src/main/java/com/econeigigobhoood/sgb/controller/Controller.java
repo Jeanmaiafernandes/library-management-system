@@ -92,12 +92,12 @@ public  class Controller implements Tables {
     }
     
 
-    public void insertarLivro(String Nome, String Autor, int Paginas, String Status) throws SQLException {
+    public void insertarLivro(int IdLivro,String Nome, String Autor, int Paginas, String Status) throws SQLException {
         try {
             conectar();
-            String consulta = "INSERT INTO Livros (Nome, Autor, Paginas, Status) VALUES ( ?, ?, ?, ?)";
+            String consulta = "INSERT INTO Livros (IdLivro ,Nome, Autor, Paginas, Status) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = conexion.prepareStatement(consulta);
-            //statement.setInt(1, Livro.setIdlivro(IdLivro)); 
+            statement.setInt(1, Livro.setIdlivro(IdLivro)); 
             statement.setString(1, Livro.setNome(Nome));
             statement.setString(2, Livro.setAutor(Autor));
             statement.setInt(3, Livro.setPaginas(Paginas));
@@ -120,12 +120,19 @@ public  class Controller implements Tables {
             String consulta = "UPDATE Livros SET Status = ? WHERE Idlivro = ?";
             PreparedStatement statement = conexion.prepareStatement(consulta);
             statement.setString(1, Livro.setStatus(Status));
-            statement.setInt(2, Livro.getIdlivro());
+            statement.setInt(2, Livro.setIdlivro(IdLivro));
 
-            statement.executeUpdate();
+            int linhas = statement.executeUpdate();
+
+            if (linhas == 0) {
+                JOptionPane.showMessageDialog(null, "Livro não cadastrado");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "O livro foi atualizado com sucesso!");
+            }
 
         
-            JOptionPane.showMessageDialog(null, "O livro atualizado foi o: " + Livro.getNome());
+           
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
