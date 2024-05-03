@@ -98,10 +98,10 @@ public  class Controller implements Tables {
             String consulta = "INSERT INTO Livros (IdLivro ,Nome, Autor, Paginas, Status) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = conexion.prepareStatement(consulta);
             statement.setInt(1, Livro.setIdlivro(IdLivro)); 
-            statement.setString(1, Livro.setNome(Nome));
-            statement.setString(2, Livro.setAutor(Autor));
-            statement.setInt(3, Livro.setPaginas(Paginas));
-            statement.setString(4, Livro.setStatus(Status));
+            statement.setString(2, Livro.setNome(Nome));
+            statement.setString(3, Livro.setAutor(Autor));
+            statement.setInt(4, Livro.setPaginas(Paginas));
+            statement.setString(5, Livro.setStatus(Status));
 
             statement.executeUpdate();
             JOptionPane.showMessageDialog(null, "O Livro Incluido foi o: " + Livro.getNome());
