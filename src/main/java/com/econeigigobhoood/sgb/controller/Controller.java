@@ -117,7 +117,19 @@ public  class Controller implements Tables {
     }
 
     public void excluiLivro(int id) {
-        throw new UnsupportedOperationException("Ainda não implementado, em produção");
+        String query = "DELETE FROM Livros WHERE id = ?";
+        
+        try {
+            conectar();
+            PreparedStatement stmt = conexion.prepareStatement(query);
+            stmt.setInt(1, id);
+
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            desconectar(); 
+        }
     }
 
     public Livro buscaLivro(int id) {
@@ -156,7 +168,7 @@ public  class Controller implements Tables {
         throw new UnsupportedOperationException("Ainda não implementado, em produção");
     }
 
-    public void emprestaLivro(int id) throws SQLException {
+    public void emprestaLivro(int id) {
         String query = "UPDATE Livros SET Status = ? WHERE Idlivro = ?";
         
         try {
@@ -179,7 +191,21 @@ public  class Controller implements Tables {
     }
 
     public void devolveLivro(int id) {
-        throw new UnsupportedOperationException("Ainda não implementado, em produção");
+        String query = "UPDATE Livros SET Status = ? WHERE Idlivro = ?";
+        
+        try {
+            conectar();
+            PreparedStatement statement = conexion.prepareStatement(query);
+
+            statement.setString(1, "Em estoque");
+            statement.setInt(2, id);
+
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            desconectar(); 
+        }
     }
 
     public List<Livro> listaLivrosEmprestado() {
