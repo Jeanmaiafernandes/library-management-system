@@ -165,7 +165,33 @@ public  class Controller implements Tables {
     }
 
     public List<Livro> listaLivros() {
-        throw new UnsupportedOperationException("Ainda não implementado, em produção");
+        List<Livro> livros = new ArrayList<Livro>();
+        String query = "SELECT * FROM Livros";
+
+        try {
+            conectar();
+            PreparedStatement stmt = conexion.prepareStatement(query);
+            
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("IdLivro");
+                String nome = rs.getString("Nome");
+                String autor = rs.getString("Autor");
+                int paginas = rs.getInt("Paginas");
+                String status = rs.getString("Status");
+
+                Livro livro = new Livro (id, nome, autor, paginas, status);
+
+                livros.add (livro);
+            }
+
+            return livros;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            desconectar();
+        }
+        return null;
     }
 
     public void emprestaLivro(int id) {
@@ -209,7 +235,34 @@ public  class Controller implements Tables {
     }
 
     public List<Livro> listaLivrosEmprestado() {
-        throw new UnsupportedOperationException("Ainda não implementado, em produção");
+        List<Livro> livros = new ArrayList<Livro>();
+        String query = "SELECT * FROM Livros WHERE Status = ?";
+
+        try {
+            conectar();
+            PreparedStatement stmt = conexion.prepareStatement(query);
+            stmt.setString(1, "Emprestado");
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("IdLivro");
+                String nome = rs.getString("Nome");
+                String autor = rs.getString("Autor");
+                int paginas = rs.getInt("Paginas");
+                String status = rs.getString("Status");
+
+                Livro livro = new Livro (id, nome, autor, paginas, status);
+
+                livros.add (livro);
+            }
+
+            return livros;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            desconectar();
+        }
+        return null;
     }
     
     public void criarTabelaLivros() throws SQLException {
