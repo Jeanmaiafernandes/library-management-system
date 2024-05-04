@@ -1,66 +1,43 @@
 package com.econeigigobhoood.sgb.model;
 
-public class Livro   {
-    
-    private static int Idlivro;
-    private static String Nome;
-    private static String Autor;
-    private static int Paginas;
-    private static String Status;
-    
+public class Livro {
+    private int Idlivro;
+    private String Nome;
+    private String Autor;
+    private int Paginas;
+    private String Status;
 
+    // Construtorzin sem o ID para criação de livretos novinhos em folha e... com folhas Heheheheheahahahah
+    public Livro(String Nome, String Autor, int Paginas,String Status) {
+        this.Nome = Nome;
+        this.Autor = Autor;
+        this.Paginas = Paginas;
+        this.Status = "Em estoque";
+    }
+
+    // Construtorzin com ID para quando precisarmos consultar livretos que estão em nosso H2
     public Livro(int Idlivro, String Nome, String Autor, int Paginas,String Status) {
-        Livro.Idlivro = Idlivro;
-        Livro.Nome = Nome;
-        Livro.Autor = Autor;
-        Livro.Paginas = Paginas;
-        Livro.Status = Status;
+        this.Idlivro = Idlivro;
+        this.Nome = Nome;
+        this.Autor = Autor;
+        this.Paginas = Paginas;
+        this.Status = Status;
     }
 
-    // Getters
-    public static int getIdlivro() {
-        return Idlivro;
-    }
+    // Getter n Setter cheirosinho
+    public int getIdlivro() { return Idlivro; }
+    public  int setIdlivro(int Idlivro) { return this.Idlivro = Idlivro; }
 
-    public static String getNome() {
-        return Nome;
-    }
+    public String getNome() { return Nome; }
+    public String setNome(String Nome) { return this.Nome = Nome; }
 
-    public static String getAutor() {
-        return Autor;
-    }
+    public String getAutor() { return Autor; }
+    public String setAutor(String Autor) { return this.Autor = Autor; }
 
-    public static int getPaginas() {
-        return Paginas;
-    }
+    public int getPaginas() { return Paginas; }
+    public int setPaginas(int Paginas) { return this.Paginas = Paginas; }
 
-    public static String getStatus() {
-        return Status;
-    }
+    public String getStatus() { return Status; }
+    public String setStatus(String Status) { return this.Status = Status; }
 
-    // Setters
-    public static  int setIdlivro(int Idlivro) {
-        return Livro .Idlivro = Idlivro;
-    }
-
-    public static String setNome(String Nome) {
-        return Livro.Nome = Nome;
-    }
-
-    public static String setAutor(String Autor) {
-        return Livro.Autor = Autor;
-    }
-
-
-    public static int setPaginas(int Paginas) {
-        return Livro.Paginas = Paginas;
-    }
-
-    public static String setStatus(String Status) {
-        return Livro.Status = Status;
-    }
-
-   
-
-    
 }

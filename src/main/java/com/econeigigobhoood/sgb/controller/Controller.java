@@ -1,5 +1,8 @@
 package com.econeigigobhoood.sgb.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,11 +12,8 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
-
 import com.econeigigobhoood.sgb.model.Livro;
 import com.econeigigobhoood.sgb.model.Tables;
-
 
 public  class Controller implements Tables {
     private DefaultTableModel modelo = new DefaultTableModel();
@@ -63,7 +63,7 @@ public  class Controller implements Tables {
     
         try {
             conectar();
-            ResultSet resultado = executarSQL("SELECT IdLivro, Nome, Autor, Paginas, Status FROM Livros;"); // Consulta SQL para selecionar todos os livros
+            ResultSet resultado = executarSQL("SELECT * FROM Livros;"); // Consulta SQL para selecionar todos os livros
             if (resultado != null) {
                 while (resultado.next()) {
                     int IdLivro = resultado.getInt("IdLivro");
@@ -92,19 +92,20 @@ public  class Controller implements Tables {
     }
     
 
-    public void insertarLivro(int IdLivro,String Nome, String Autor, int Paginas, String Status) throws SQLException {
+    //Conexão de MainMenu para Controller
+    // Método de cadastro de livro no banco de dados
+    public void insertarLivro(Livro entidade) throws SQLException {
         try {
             conectar();
-            String consulta = "INSERT INTO Livros (IdLivro ,Nome, Autor, Paginas, Status) VALUES (?, ?, ?, ?, ?)";
+            String consulta = "INSERT INTO Livros (Nome, Autor, Paginas, Status) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = conexion.prepareStatement(consulta);
-            statement.setInt(1, Livro.setIdlivro(IdLivro)); 
-            statement.setString(2, Livro.setNome(Nome));
-            statement.setString(3, Livro.setAutor(Autor));
-            statement.setInt(4, Livro.setPaginas(Paginas));
-            statement.setString(5, Livro.setStatus(Status));
+            statement.setString(1, entidade.getNome());
+            statement.setString(2, entidade.getAutor());
+            statement.setInt(3, entidade.getPaginas());
+            statement.setString(4, "Em estoque");
 
             statement.executeUpdate();
-            JOptionPane.showMessageDialog(null, "O Livro Incluido foi o: " + Livro.getNome());
+            JOptionPane.showMessageDialog(null, "O Livro Incluido foi o: " + entidade.getNome());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -114,13 +115,31 @@ public  class Controller implements Tables {
         }
     }
 
-    public void atualizarLivro(String Status, int IdLivro) throws SQLException {
+    public void excluiLivro(int id) {
+        throw new UnsupportedOperationException("Ainda não implementado, em produção");
+    }
+
+    public Livro buscaLivro(int id) {
+        throw new UnsupportedOperationException("Ainda não implementado, em produção");
+    }
+
+    public Livro atualizarLivro(Livro entidade) {
+        throw new UnsupportedOperationException("Ainda não implementado, em produção");
+    }
+
+    public List<Livro> listaLivros() {
+        throw new UnsupportedOperationException("Ainda não implementado, em produção");
+    }
+
+    public void emprestaLivro(int id) throws SQLException {
+        String query = "UPDATE Livros SET Status = ? WHERE Idlivro = ?";
+        
         try {
             conectar();
-            String consulta = "UPDATE Livros SET Status = ? WHERE Idlivro = ?";
-            PreparedStatement statement = conexion.prepareStatement(consulta);
-            statement.setString(1, Livro.setStatus(Status));
-            statement.setInt(2, Livro.setIdlivro(IdLivro));
+            PreparedStatement statement = conexion.prepareStatement(query);
+
+            statement.setString(1, "Emprestado");
+            statement.setInt(2, id);
 
             int linhas = statement.executeUpdate();
 
@@ -131,16 +150,25 @@ public  class Controller implements Tables {
                 JOptionPane.showMessageDialog(null, "O livro foi atualizado com sucesso!");
             }
 
-        
-           
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             desconectar(); 
         }
     }
-    
 
+    public Livro buscaLivroEmprestado(int id) {
+        throw new UnsupportedOperationException("Ainda não implementado, em produção");
+    }
+
+    public void devolveLivro(int id) {
+        throw new UnsupportedOperationException("Ainda não implementado, em produção");
+    }
+
+    public List<Livro> listaLivrosEmprestado() {
+        throw new UnsupportedOperationException("Ainda não implementado, em produção");
+    }
+    
     public void criarTabelaLivros() throws SQLException {
         conectar();
         String query = "CREATE TABLE IF NOT EXISTS Livros ("
