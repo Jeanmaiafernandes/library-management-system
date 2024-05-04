@@ -136,7 +136,7 @@ public class BookRegister {
 
             // Se condição for verdadeira os dados serão enviados
             if (op == "S") {
-
+                MainMenu.bookRegMenu();
             } else if (op == "N") {
                 Misc.clearScreen();
                 refMisc.deleteFile("bookRegister");
