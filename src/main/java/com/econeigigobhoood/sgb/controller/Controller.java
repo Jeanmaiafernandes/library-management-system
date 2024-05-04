@@ -160,8 +160,23 @@ public  class Controller implements Tables {
         return null;
     }
 
-    public Livro atualizarLivro(Livro entidade) {
-        throw new UnsupportedOperationException("Ainda não implementado, em produção");
+    public void atualizarLivro(Livro entidade) {
+        String query = "UPDATE Livros SET Nome = ?, Autor = ?, Paginas = ? WHERE id = ?";
+
+        try {
+            conectar();
+            PreparedStatement stmt = conexion.prepareStatement(query);
+            stmt.setString(1, entidade.getNome());
+            stmt.setString(2, entidade.getAutor());
+            stmt.setInt(3, entidade.getPaginas());
+            stmt.setInt(4, entidade.getIdlivro());
+
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            desconectar();
+        }
     }
 
     public List<Livro> listaLivros() {
