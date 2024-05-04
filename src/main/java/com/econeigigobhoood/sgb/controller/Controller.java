@@ -19,7 +19,9 @@ public  class Controller implements Tables {
     private DefaultTableModel modelo = new DefaultTableModel();
     private Connection conexion;
        
-
+    // ====================================
+    // ========= DATABASE CONFIG ==========
+    // ====================================
     @Override
     public boolean hayConection() {
         return (conexion != null);
@@ -94,7 +96,9 @@ public  class Controller implements Tables {
         return modelo; // Retorna o modelo preenchido com os dados dos livros
     }
     
-
+    // ===============================================
+    // ========= OPERAÇÕES NO ESTOQUE GERAL ==========
+    // ===============================================
     //Conexão de MainMenu para Controller
     // Método de cadastro de livro no banco de dados
     public void insertarLivro(Livro entidade) throws SQLException {
@@ -209,6 +213,9 @@ public  class Controller implements Tables {
         return null;
     }
 
+    // ============================================
+    // ========= OPERAÇÕES EM EMPRESTADO ==========
+    // ============================================
     public void emprestaLivro(int id) {
         String query = "UPDATE Livros SET Status = ? WHERE Idlivro = ?";
         
@@ -225,10 +232,6 @@ public  class Controller implements Tables {
         } finally {
             desconectar(); 
         }
-    }
-
-    public Livro buscaLivroEmprestado(int id) {
-        throw new UnsupportedOperationException("Ainda não implementado, em produção");
     }
 
     public void devolveLivro(int id) {
@@ -279,7 +282,10 @@ public  class Controller implements Tables {
         }
         return null;
     }
-    
+
+    // ===================================
+    // ========= TABLE CREATION ==========
+    // ===================================
     public void criarTabelaLivros() throws SQLException {
         conectar();
         String query = "CREATE TABLE IF NOT EXISTS Livros ("
