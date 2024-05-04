@@ -92,7 +92,8 @@ public  class Controller implements Tables {
     }
     
 
-    public void insertarLivro(int IdLivro,String Nome, String Autor, int Paginas, String Status) throws SQLException {
+    //Conexão de MainMenu para Controller --Estape
+    public void insertarLivro(int IdLivro, String Nome, String Autor, int Paginas, String Status) throws SQLException {
         try {
             conectar();
             String consulta = "INSERT INTO Livros (IdLivro ,Nome, Autor, Paginas, Status) VALUES (?, ?, ?, ?, ?)";
