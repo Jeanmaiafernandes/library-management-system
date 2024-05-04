@@ -51,10 +51,13 @@ public  class Controller implements Tables {
     }
 
     @Override
-    public void desconectar() throws SQLException {
-        if (conexion != null) {
+    public void desconectar() {
+        try{
+            if (conexion != null) {
             conexion.close();
-            conexion = null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     
@@ -109,9 +112,7 @@ public  class Controller implements Tables {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            
-                desconectar(); 
-            
+            desconectar(); 
         }
     }
 
@@ -120,7 +121,31 @@ public  class Controller implements Tables {
     }
 
     public Livro buscaLivro(int id) {
-        throw new UnsupportedOperationException("Ainda não implementado, em produção");
+        String query = "SELECT * FROM Livros WHERE id = ?";
+        
+        try {
+            conectar();
+            PreparedStatement stmt = conexion.prepareStatement(query);
+            stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                String nome = rs.getString("Nome");
+                String autor = rs.getString("Autor");
+                int paginas = rs.getInt("Paginas");
+                String status = rs.getString("Status");
+
+                Livro livro = new Livro(id, nome, autor, paginas, status);
+                
+                return livro;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            desconectar(); 
+        }
+        return null;
     }
 
     public Livro atualizarLivro(Livro entidade) {
