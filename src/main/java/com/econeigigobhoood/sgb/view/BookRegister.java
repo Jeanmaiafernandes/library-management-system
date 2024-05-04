@@ -27,101 +27,101 @@ public class BookRegister {
 
             MainMenu.baseMsgFunc("Cadastrar livros novos");
 
-            System.out.println(
+            Misc.text(
                     "Dados a serem preenchidos:\n*ID do livro\n*Nome do livro\n*Autor do livro\n*Quantidade de páginas\n\n");
 
-            System.out.print("ID do livro: ");
+            Misc.text("ID do livro: ");
             try {
                 if (idLivro == 0) {
                     idLivro = scannerInput.nextInt();
 
                     if (idLivro < 1) {
                         Misc.clearScreen();
-                        System.out.println("A ID precisa ser número 1 ou maior.");
+                        Misc.text("A ID precisa ser número 1 ou maior.");
                         Misc.delay(3);
                         Misc.clearScreen();
                         callBookRegister();
                     }
                 }
             } catch (Exception scannerException) {
-                System.out.println(Misc.SCANNER_INVALID_ERROR);
-                System.out.println("Por favor digite SOMENTE número, que seja igual ou maior que 0");
+                Misc.text(Misc.SCANNER_INVALID_ERROR);
+                Misc.text("Por favor digite SOMENTE número, que seja igual ou maior que 0");
                 Misc.delay(2);
                 Misc.clearScreen();
                 scannerInput.nextLine();
                 callBookRegister();
             }
 
-            System.out.print("Nome do livro: ");
+            Misc.text("Nome do livro: ");
             try {
                 if (nomeLivro.isEmpty()) {
                     nomeLivro = scannerInput.nextLine();
 
                     if (nomeLivro.isBlank()) {
                         Misc.clearScreen();
-                        System.out.println("O nome do livro não pode ser só espaço em branco ou nada");
+                        Misc.text("O nome do livro não pode ser só espaço em branco ou nada");
                         Misc.delay(2);
                         Misc.clearScreen();
                         callBookRegister();
                     }
                 }
             } catch (Exception scannerException) {
-                System.out.println(Misc.SCANNER_INPUT_ERROR);
+                Misc.text(Misc.SCANNER_INPUT_ERROR);
                 Misc.delay(2);
                 Misc.clearScreen();
                 scannerInput.nextLine();
                 callBookRegister();
             }
 
-            System.out.print("Autor do livro: ");
+            Misc.text("Autor do livro: ");
             try {
                 if (autorLivro.isEmpty()) {
                     autorLivro = scannerInput.nextLine();
 
                     if (autorLivro.isBlank()) {
                         Misc.clearScreen();
-                        System.out.println("O nome do autor do livro não pode ser só espaço em branco ou nada");
+                        Misc.text("O nome do autor do livro não pode ser só espaço em branco ou nada");
                         Misc.delay(2);
                         Misc.clearScreen();
                         callBookRegister();
                     }
                 }
             } catch (Exception scannerException) {
-                System.out.println(Misc.SCANNER_INPUT_ERROR);
+                Misc.text(Misc.SCANNER_INPUT_ERROR);
                 Misc.delay(2);
                 Misc.clearScreen();
                 scannerInput.nextLine();
                 callBookRegister();
             }
 
-            System.out.print("Quantidade de páginas: ");
+            Misc.text("Quantidade de páginas: ");
             try {
                 if (paginasLivro == 0) {
                     paginasLivro = scannerInput.nextInt();
 
                     if (paginasLivro < 0) {
                         Misc.clearScreen();
-                        System.out.println("A quantidade de páginas precisa em número e igual 1 ou maior.");
+                        Misc.text("A quantidade de páginas precisa em número e igual 1 ou maior.");
                         Misc.delay(2);
                         Misc.clearScreen();
                         callBookRegister();
                     }
                 }
             } catch (Exception scannerException) {
-                System.out.println(Misc.SCANNER_INVALID_ERROR);
-                System.out.println("Por favor digite SOMENTE número, que seja igual ou maior que 0");
+                Misc.text(Misc.SCANNER_INVALID_ERROR);
+                Misc.text("Por favor digite SOMENTE número, que seja igual ou maior que 0");
                 Misc.delay(2);
                 Misc.clearScreen();
                 scannerInput.nextLine();
                 callBookRegister();
             }
 
-            System.out.println("Livro a ser cadastrado: ");
+            Misc.text("Livro a ser cadastrado: ");
 
-            System.out.printf("ID: {0}", idLivro);
-            System.out.printf("Nome do livro: {0}", nomeLivro);
-            System.out.printf("Autor do livro: {0}", autorLivro);
-            System.out.printf("Quantidade de páginas: {0}", paginasLivro);
+            Misc.text("ID: {0}", idLivro);
+            Misc.text("Nome do livro: {0}", nomeLivro);
+            Misc.text("Autor do livro: {0}", autorLivro);
+            Misc.text("Quantidade de páginas: {0}", paginasLivro);
 
             // Cria um arquivo temporario para tratativa de Scanner
             livroBuffer.add(Integer.toString(idLivro));
@@ -130,7 +130,7 @@ public class BookRegister {
             livroBuffer.add(Integer.toString(paginasLivro));
             refMisc.writeText("bookRegister", livroBuffer);
 
-            System.out.println("Esta correto o cadastro? (S/N): ");
+            Misc.text("Esta correto o cadastro? (S/N): ");
             op = scannerInput.nextLine();
             op = op.toUpperCase();
 
@@ -156,18 +156,18 @@ public class BookRegister {
             autorLivro = livroBuffer.get(2);
             paginasLivro = Integer.parseInt(livroBuffer.get(3));
 
-            System.out.printf("ID: {0}", idLivro);
-            System.out.printf("Nome do livro: {0}", nomeLivro);
-            System.out.printf("Autor do livro: {0}", autorLivro);
-            System.out.printf("Quantidade de páginas: {0}", paginasLivro);
+            Misc.text("ID: {0}", idLivro);
+            Misc.text("Nome do livro: {0}", nomeLivro);
+            Misc.text("Autor do livro: {0}", autorLivro);
+            Misc.text("Quantidade de páginas: {0}", paginasLivro);
 
-            System.out.println("Esta correto o cadastro? (S/N): ");
+            Misc.text("Esta correto o cadastro? (S/N): ");
             op = scannerInput.nextLine();
             op = op.toUpperCase();
 
             // Se condição for verdadeira os dados serão enviados
             if (op == "S") {
-                refController.insertarLivro(idLivro, nomeLivro, autorLivro, paginasLivro, autorLivro, "true");
+                
             } else if (op == "N") {
                 Misc.clearScreen();
                 refMisc.deleteFile("bookRegister");

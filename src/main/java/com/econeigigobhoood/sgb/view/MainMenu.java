@@ -11,7 +11,7 @@ public class MainMenu {
 
     private static void msgDefault(int timeSec) {
         Misc.clearScreen();
-        System.out.println("ATENÇÃO -> Opção inválida\n");
+        Misc.text("ATENÇÃO -> Opção inválida\n");
         Misc.delay(timeSec);
         Misc.clearScreen();
     }
@@ -20,24 +20,24 @@ public class MainMenu {
     private static void helpMenu() {
         Scanner scannerInput = new Scanner(System.in);
 
-        System.out.println("**** Sistema de Gestão de Bibliotca ****\n");
-        System.out.printf("=========== Tela de ajuda ===========\n\n");
-        System.out.println(
+        Misc.text("**** Sistema de Gestão de Bibliotca ****\n");
+        Misc.text("=========== Tela de ajuda ===========\n\n");
+        Misc.text(
                 "Para utilizar o Sistema de Gestão de Livros será apresentado opções de cada tela presente ao usuário, cada opção tem um número correspondente");
-        System.out.println(
+        Misc.text(
                 "sendo assim para selecionar a opção desejada basta digitar o número desta opção, por exemplo:\n");
 
-        System.out.println("1 - Carregar arquivo");
-        System.out.println("O número 1 representa o número da opção e Carregar arquivo é a descrição da opção.\n");
+        Misc.text("1 - Carregar arquivo");
+        Misc.text("O número 1 representa o número da opção e Carregar arquivo é a descrição da opção.\n");
 
-        System.out.println(
+        Misc.text(
                 "Após digitar a opção desejada basta pressionar a tecla ENTER que será carregado a tela correspondente da função escolhida.\n");
-        System.out.println("Pressione qualquer tecla para retornar ao menu principal...");
+        Misc.text("Pressione qualquer tecla para retornar ao menu principal...");
 
         try {
             scannerInput.nextLine();
         } catch (Exception scannerException) {
-            System.out.printf(Misc.SCANNER_INPUT_ERROR);
+            Misc.text(Misc.SCANNER_INPUT_ERROR);
             System.exit(-1);
         }
 
@@ -50,24 +50,24 @@ public class MainMenu {
         String op = "";
 
         Scanner scannerInput = new Scanner(System.in);
-        System.out.println("**** Sistema de Gestão de Bibliotca ****\n");
+        Misc.text("**** Sistema de Gestão de Bibliotca ****\n");
 
-        System.out.println("Selecione a opção desejada digitando o número correspondente:\n");
+        Misc.text("Selecione a opção desejada digitando o número correspondente:\n");
 
-        System.out.printf("=========== %s ===========\n\n", nameScreen);
-        System.out.println("Dica: Para receber ajuda escreva AJUDAR.\n");
+        Misc.text("=========== %s ===========\n", nameScreen);
+        Misc.text("Dica: Para receber ajuda escreva AJUDAR.\n");
 
         for (int i = 0; i < opSelector.size(); i++) {
-            System.out.println(opSelector.get(i));
+            Misc.text(opSelector.get(i));
         }
 
         try {
-            System.out.print("\nNúmero da opção: ");
+            Misc.text("Número da opção: ");
             op = scannerInput.nextLine();
             op = op.toUpperCase();
 
         } catch (Exception scannerException) {
-            System.out.println(Misc.SCANNER_INPUT_ERROR);
+            Misc.text(Misc.SCANNER_INPUT_ERROR);
             Misc.delay(2);
             Misc.clearScreen();
             scannerInput.nextLine();
@@ -78,10 +78,10 @@ public class MainMenu {
     }
 
     protected static void baseMsgFunc(String nameScreen) {
-        System.out.println("**** Sistema de Gestão de Bibliotca ****\n");
+        Misc.text("**** Sistema de Gestão de Bibliotca ****\n");
 
-        System.out.printf("=========== %s ===========\n\n", nameScreen);
-        System.out.println("Dica: Para receber ajuda escreva AJUDAR.\n\n");
+        Misc.text("=========== %s ===========\n\n", nameScreen);
+        Misc.text("Dica: Para receber ajuda escreva AJUDAR.\n\n");
     }
 
     // Menu inicial é este aqui.
@@ -109,7 +109,7 @@ public class MainMenu {
                 break;
             case "4":
                 Misc.clearScreen();
-                System.out.println("Sistema fechado, até logo!\n\n");
+                Misc.text("Sistema fechado, até logo!\n\n");
                 System.exit(0);
                 break;
             case "AJUDAR":

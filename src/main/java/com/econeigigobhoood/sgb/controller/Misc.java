@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Misc {
 
@@ -16,6 +17,8 @@ public class Misc {
     public static final String FILE_NOT_FOUND_ERROR = "ERROR: File not found.";
     public static final String FILE_NOT_WRITED_ERROR = "ERROR: File can't be saved.";
     public static final String FILE_NOT_DELETED_ERROR = "ERROR: File can't be deleted.";
+
+    private static Scanner scanner = new Scanner(System.in);
 
     public void writeText(String name, ArrayList<String> text) {
         try {
@@ -78,6 +81,28 @@ public class Misc {
             Thread.sleep(timeSeconds);
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void text(String msg, Object... args) {
+        if(args == null){
+            System.out.println(msg);
+        }
+        else{
+            System.out.printf(msg + "\n", args);
+        }
+        
+    }
+
+    public static Object inputUser() {
+        if (scanner.hasNextInt()) {
+            return scanner.nextInt();
+        } else if (scanner.hasNextDouble()) {
+            return scanner.nextDouble();
+        } else if (scanner.hasNextBoolean()) {
+            return scanner.nextBoolean();
+        } else {
+            return scanner.next();
         }
     }
 }
