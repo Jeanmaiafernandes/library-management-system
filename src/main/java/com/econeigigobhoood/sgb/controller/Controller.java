@@ -141,15 +141,7 @@ public  class Controller implements Tables {
             statement.setString(1, "Emprestado");
             statement.setInt(2, id);
 
-            int linhas = statement.executeUpdate();
-
-            if (linhas == 0) {
-                JOptionPane.showMessageDialog(null, "Livro não cadastrado");
-
-            } else {
-                JOptionPane.showMessageDialog(null, "O livro foi atualizado com sucesso!");
-            }
-
+            statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
