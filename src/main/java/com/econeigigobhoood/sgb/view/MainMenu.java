@@ -168,7 +168,8 @@ public class MainMenu {
                 BookRegister.callBookRegister();
                 break;
             case "2":
-
+                Misc.clearScreen();
+                listBooks();
                 break;
             case "3":
                 Misc.clearScreen();
@@ -178,6 +179,26 @@ public class MainMenu {
                 msgDefault(3);
                 bookBorrow();
                 break;
+        }
+    }
+
+    public static void listBooks() {
+        ArrayList<Integer> idLivro = new ArrayList<Integer>();
+        ArrayList<String> nomeLivro = new ArrayList<String>();
+        ArrayList<String> autorLivro = new ArrayList<String>();
+        ArrayList<Integer> paginasLivro = new ArrayList<Integer>();
+
+        // LISTAR DO BANCO DE DADOS
+
+        if (idLivro.size() == nomeLivro.size() && nomeLivro.size() == autorLivro.size() && autorLivro.size() == paginasLivro.size()) {
+            // Imprima os valores em um formato de "célula"
+            for (int i = 0; i < idLivro.size(); i++) {
+                Misc.text("+-----------------+----------------------+----------------------+-----------------+");
+                Misc.text("| %-15s | %-20s | %-20s | %-15s |\n", idLivro.get(i), nomeLivro.get(i), autorLivro.get(i), paginasLivro.get(i));
+                Misc.text("+-----------------+----------------------+----------------------+-----------------+");
+            }
+        } else {
+            Misc.text(Misc.DATABASE_LIST_ERROR);
         }
     }
 }

@@ -1,10 +1,11 @@
 package com.econeigigobhoood.sgb.view;
 
+import java.util.ArrayList;
+
 import com.econeigigobhoood.sgb.controller.Misc;
 
 public class UpdateBook {
-    public static void callUpdateBook()
-    {
+    public static void callUpdateBook() {
         MainMenu.baseMsgFunc("Alterar cadastro de livros");
 
         Misc.text("1 - Pesquisa por ID");
@@ -14,10 +15,9 @@ public class UpdateBook {
         Object rawInputUser = Misc.inputUser();
         int intInputUser = 0;
 
-        if(rawInputUser instanceof Integer){
+        if (rawInputUser instanceof Integer) {
             intInputUser = (Integer) (rawInputUser);
-        }
-        else{
+        } else {
             Misc.clearScreen();
             Misc.text("Por favor digite apenas número");
             Misc.delay(3);
@@ -33,54 +33,61 @@ public class UpdateBook {
                 searchName();
                 Misc.clearScreen();
                 break;
-            case 3: 
-                Misc.clearScreen();    
+            case 3:
+                Misc.clearScreen();
                 MainMenu.bookRegMenu();
                 break;
             default:
-            Misc.clearScreen();    
-            Misc.text("Opção invalida");
-            Misc.delay(3);
-            callUpdateBook();;
+                Misc.clearScreen();
+                Misc.text("Opção invalida");
+                Misc.delay(3);
+                callUpdateBook();
+                ;
                 break;
         }
     }
 
-    private static void searchID(){
+    private static void searchID() {
         MainMenu.baseMsgFunc("Pesquisa por ID");
 
         Object rawInputUser = Misc.inputUser();
         int intInputUser = 0;
 
-        if(rawInputUser instanceof Integer){
+        ArrayList<Integer> idLivro = new ArrayList<Integer>();
+        ArrayList<String> nomeLivro = new ArrayList<String>();
+
+        if (rawInputUser instanceof Integer) {
             intInputUser = (Integer) (rawInputUser);
-        }
-        else{
+        } else {
             Misc.clearScreen();
             Misc.text("Por favor digite apenas número");
             Misc.delay(3);
             searchID();
         }
 
-        //conectar ao banco de dados
+        // CONEXÃO COM BANCO DE DADOS por ID
+
+        nomeLivro.addAll();
+
+        for (int i = 0; i < idLivro.size(); i++) {
+            Misc.text("ID: {0} | Nome: {1}", idLivro.get(i), nomeLivro.get(i));
+        }
     }
 
-    private static void searchName(){
+    private static void searchName() {
         MainMenu.baseMsgFunc("Pesquisa por nome do livro");
 
-        Object rawInputUser = Misc.inputUser();
-        String StringInputUser = "";
+        String StringInputUser = (String) (Misc.inputUser());
 
-        if(rawInputUser instanceof Integer){
-            StringInputUser = (String) (rawInputUser);
-        }
-        else{
-            Misc.clearScreen();
-            Misc.text("Por favor apenas número");
-            Misc.delay(3);
-            searchID();
-        }
+        ArrayList<Integer> idLivro = new ArrayList<Integer>();
+        ArrayList<String> nomeLivro = new ArrayList<String>();
 
-        //conectar ao banco de dados
+        // CONEXÃO COM BANCO DE DADOS por nome
+
+        idLivro.addAll();
+
+        for (int i = 0; i < nomeLivro.size(); i++) {
+            Misc.text("ID: {0} | Nome: {1}", idLivro.get(i), nomeLivro.get(i));
+        }
     }
 }

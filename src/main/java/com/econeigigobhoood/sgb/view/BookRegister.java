@@ -167,7 +167,7 @@ public class BookRegister {
 
             // Se condição for verdadeira os dados serão enviados
             if (op == "S") {
-                
+                //CONEXÃO COM BANCO DE DADOS
             } else if (op == "N") {
                 Misc.clearScreen();
                 refMisc.deleteFile("bookRegister");
