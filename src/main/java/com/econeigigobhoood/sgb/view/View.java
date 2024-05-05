@@ -6,10 +6,85 @@ import com.econeigigobhoood.sgb.controller.Controller;
 import com.econeigigobhoood.sgb.controller.Misc;
 import java.util.ArrayList;
 
-public class BookRegister {
+public class View {
+    private MainMenu mainMenu;
+
+    // Puxar a instancia pelo construtor
+    // Ação realizada no application
+    public View(MainMenu mainMenu) {
+        this.mainMenu = mainMenu;
+    }
     
+    public void callUpdateBook() {
+        mainMenu.baseMsgFunc("Alterar cadastro de livros");
+
+        Misc.text("1 - Pesquisa por ID");
+        Misc.text("2 - Voltar a tela 'Cadastro de livros'");
+
+        Object rawInputUser = Misc.inputUser();
+        int intInputUser = 0;
+
+        if(rawInputUser instanceof Integer) {
+            intInputUser = (Integer) (rawInputUser);
+        } else {
+            Misc.clearScreen();
+            Misc.text("Por favor digite apenas número");
+            Misc.delay(3);
+            callUpdateBook();
+        }
+
+        switch (intInputUser) {
+            case 1 -> { searchID(); Misc.clearScreen(); }
+            case 2 -> { Misc.clearScreen(); mainMenu.bookRegMenu(); } 
+            default -> { 
+                Misc.clearScreen();    
+                Misc.text("Opção invalida");
+                Misc.delay(3);
+                callUpdateBook(); 
+            }
+        }
+    }
+
+    private void searchID() {
+        mainMenu.baseMsgFunc("Pesquisa por ID");
+
+        Object rawInputUser = Misc.inputUser();
+        int intInputUser = 0;
+
+        if(rawInputUser instanceof Integer){
+            intInputUser = (Integer) (rawInputUser);
+        }
+        else{
+            Misc.clearScreen();
+            Misc.text("Por favor digite apenas número");
+            Misc.delay(3);
+            searchID();
+        }
+
+        //conectar ao banco de dados
+    }
+
+    private void searchName() {
+        mainMenu.baseMsgFunc("Pesquisa por nome do livro");
+
+        Object rawInputUser = Misc.inputUser();
+        String StringInputUser = "";
+
+        if(rawInputUser instanceof Integer){
+            StringInputUser = (String) (rawInputUser);
+        }
+        else{
+            Misc.clearScreen();
+            Misc.text("Por favor apenas número");
+            Misc.delay(3);
+            searchID();
+        }
+
+        //conectar ao banco de dados
+    }
+
     @SuppressWarnings("resource")
-    public static void callBookRegister() {
+    public void callBookRegister() {
         Misc refMisc = new Misc();
         Controller refController = new Controller();
         String op = "";
@@ -25,7 +100,7 @@ public class BookRegister {
         if (livroBuffer.size() <= 0) {
             Scanner scannerInput = new Scanner(System.in);
 
-            MainMenu.baseMsgFunc("Cadastrar livros novos");
+            mainMenu.baseMsgFunc("Cadastrar livros novos");
 
             Misc.text(
                     "Dados a serem preenchidos:\n*ID do livro\n*Nome do livro\n*Autor do livro\n*Quantidade de páginas\n\n");
@@ -136,7 +211,7 @@ public class BookRegister {
 
             // Se condição for verdadeira os dados serão enviados
             if (op == "S") {
-                MainMenu.bookRegMenu();
+                mainMenu.bookRegMenu();
             } else if (op == "N") {
                 Misc.clearScreen();
                 refMisc.deleteFile("bookRegister");
@@ -145,9 +220,7 @@ public class BookRegister {
                 Misc.clearScreen();
                 callBookRegister();
             }
-        }
-
-        else {
+        } else {
             Scanner scannerInput = new Scanner(System.in);
 
             // Carregar as informações do arquivo temporário
@@ -177,6 +250,5 @@ public class BookRegister {
                 callBookRegister();
             }
         }
-
     }
 }

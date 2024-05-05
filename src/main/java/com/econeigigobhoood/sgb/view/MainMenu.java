@@ -1,15 +1,28 @@
 package com.econeigigobhoood.sgb.view;
 
 import java.util.Scanner;
+import java.util.ResourceBundle.Control;
 
+import com.econeigigobhoood.sgb.controller.Controller;
 import com.econeigigobhoood.sgb.controller.Misc;
 import java.util.ArrayList;
 
 public class MainMenu {
+    private Controller controller;
+    private View view;
+    private Scanner scannerInput;
+    public ArrayList<String> listOptions = new ArrayList<String>();
 
-    public static ArrayList<String> listOptions = new ArrayList<String>();
+    // Consturtor do sistema
+    public MainMenu(Controller controller, Scanner scannerInput) {
+        this.controller = controller;
+        this.scannerInput = scannerInput;
+    }
 
-    private static void msgDefault(int timeSec) {
+    // Setting View
+    public void setView(View view) { this.view = view; }
+
+    private void msgDefault(int timeSec) {
         Misc.clearScreen();
         Misc.text("ATENÇÃO -> Opção inválida\n");
         Misc.delay(timeSec);
@@ -17,9 +30,7 @@ public class MainMenu {
     }
 
     @SuppressWarnings("resource")
-    private static void helpMenu() {
-        Scanner scannerInput = new Scanner(System.in);
-
+    private void helpMenu() {
         Misc.text("**** Sistema de Gestão de Bibliotca ****\n");
         Misc.text("=========== Tela de ajuda ===========\n\n");
         Misc.text(
@@ -46,7 +57,7 @@ public class MainMenu {
     }
 
     @SuppressWarnings("resource")
-    private static String baseMsg(String nameScreen, ArrayList<String> opSelector) {
+    private String baseMsg(String nameScreen, ArrayList<String> opSelector) {
         String op = "";
 
         Scanner scannerInput = new Scanner(System.in);
@@ -77,7 +88,7 @@ public class MainMenu {
         return op;
     }
 
-    protected static void baseMsgFunc(String nameScreen) {
+    protected void baseMsgFunc(String nameScreen) {
         Misc.text("**** Sistema de Gestão de Bibliotca ****\n");
 
         Misc.text("=========== %s ===========\n\n", nameScreen);
@@ -85,7 +96,7 @@ public class MainMenu {
     }
 
     // Menu inicial é este aqui.
-    public static void callMainMenu() {
+    public void callMainMenu() {
         String op = "";
         listOptions.clear();
         listOptions.add("1 - Empréstimo de livros");
@@ -94,38 +105,18 @@ public class MainMenu {
         listOptions.add("4 - Sair do programa");
 
         op = baseMsg("Menu principal", listOptions);
-
         switch (op) {
-            case "1":
-                Misc.clearScreen();
-                bookBorrow();
-                break;
-
-            case "2":
-                Misc.clearScreen();
-                bookRegMenu();
-                break;
-            case "3":
-                break;
-            case "4":
-                Misc.clearScreen();
-                Misc.text("Sistema fechado, até logo!\n\n");
-                System.exit(0);
-                break;
-            case "AJUDAR":
-                Misc.clearScreen();
-                helpMenu();
-                break;
-
-            default:
-                msgDefault(3);
-                callMainMenu();
-                break;
+            case "1" -> { Misc.clearScreen(); bookBorrow(); }
+            case "2" -> { Misc.clearScreen(); bookRegMenu(); }
+            case "3" -> { }
+            case "4" -> { Misc.clearScreen(); Misc.text("Sistema fechado, até logo!\n\n"); System.exit(0); }
+            case "AJUDAR" -> { Misc.clearScreen(); helpMenu(); }
+            default -> { msgDefault(3); callMainMenu(); }
         }
     }
 
     // Opção 1
-    public static void bookBorrow() {
+    public void bookBorrow() {
         String op = "";
         listOptions.clear();
         listOptions.add("1 - Entrega de livros");
@@ -133,27 +124,16 @@ public class MainMenu {
         listOptions.add("3 - Voltar ao menu anterior");
 
         op = baseMsg("Empréstimo de livros", listOptions);
-
         switch (op) {
-            case "1":
-
-                break;
-            case "2":
-
-                break;
-            case "3":
-                Misc.clearScreen();
-                callMainMenu();
-                break;
-            default:
-                msgDefault(3);
-                bookBorrow();
-                break;
+            case "1" -> { }
+            case "2" -> { }
+            case "3" -> { Misc.clearScreen(); callMainMenu(); }
+            default -> { msgDefault(3); bookBorrow(); }
         }
     }
 
     // Opção 2
-    public static void bookRegMenu() {
+    public void bookRegMenu() {
         String op = "";
         listOptions.clear();
         listOptions.add("1 - Cadastrar livros novos");
@@ -161,23 +141,11 @@ public class MainMenu {
         listOptions.add("3 - Voltar ao menu anterior");
 
         op = baseMsg("Cadastro de livros", listOptions);
-
         switch (op) {
-            case "1":
-                Misc.clearScreen();
-                BookRegister.callBookRegister();
-                break;
-            case "2":
-
-                break;
-            case "3":
-                Misc.clearScreen();
-                callMainMenu();
-                break;
-            default:
-                msgDefault(3);
-                bookBorrow();
-                break;
+            case "1" -> { Misc.clearScreen(); view.callBookRegister(); }
+            case "2" -> { }
+            case "3" -> { Misc.clearScreen(); callMainMenu(); }
+            default -> { msgDefault(3); bookBorrow(); }
         }
     }
 }
