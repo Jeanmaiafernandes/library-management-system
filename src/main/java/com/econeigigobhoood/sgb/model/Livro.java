@@ -8,7 +8,7 @@ public class Livro {
     private String Status;
 
     // Construtorzin sem o ID para criação de livretos novinhos em folha e... com folhas Heheheheheahahahah
-    public Livro(String Nome, String Autor, int Paginas,String Status) {
+    public Livro(String Nome, String Autor, int Paginas) {
         this.Nome = Nome;
         this.Autor = Autor;
         this.Paginas = Paginas;

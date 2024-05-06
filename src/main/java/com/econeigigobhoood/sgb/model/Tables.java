@@ -17,5 +17,5 @@ public interface Tables {
     boolean executarAtualizacaoSQL(String comandoSQL) throws SQLException;
 
     void desconectar() throws SQLException;
-    void criarTabelaLivros() throws SQLException;
+
 }
