@@ -1,21 +1,18 @@
 package com.econeigigobhoood.sgb.view;
 
 import java.util.Scanner;
-import java.util.ResourceBundle.Control;
 
-import com.econeigigobhoood.sgb.controller.Controller;
 import com.econeigigobhoood.sgb.controller.Misc;
+
 import java.util.ArrayList;
 
 public class MainMenu {
-    private Controller controller;
     private View view;
     private Scanner scannerInput;
     public ArrayList<String> listOptions = new ArrayList<String>();
 
     // Consturtor do sistema
-    public MainMenu(Controller controller, Scanner scannerInput) {
-        this.controller = controller;
+    public MainMenu(Scanner scannerInput) {
         this.scannerInput = scannerInput;
     }
 
@@ -99,23 +96,42 @@ public class MainMenu {
     public void callMainMenu() {
         String op = "";
         listOptions.clear();
-        listOptions.add("1 - Empréstimo de livros");
-        listOptions.add("2 - Cadastro de livros");
-        listOptions.add("3 - Consultar livros disponiveis");
+        listOptions.add("1 - Operações de cadastro de livros");
+        listOptions.add("2 - Empréstimo de livros");
+        listOptions.add("3 - Limpar banco de dados H2 [CUIDADO, JOVEM GAFANHOTO]");
         listOptions.add("4 - Sair do programa");
 
         op = baseMsg("Menu principal", listOptions);
         switch (op) {
-            case "1" -> { Misc.clearScreen(); bookBorrow(); }
-            case "2" -> { Misc.clearScreen(); bookRegMenu(); }
-            case "3" -> { }
+            case "1" -> { Misc.clearScreen(); bookRegMenu(); }
+            case "2" -> { Misc.clearScreen(); bookBorrow(); }
+            case "3" -> { Misc.clearScreen(); view.deleteAll(); }
             case "4" -> { Misc.clearScreen(); Misc.text("Sistema fechado, até logo!\n\n"); System.exit(0); }
             case "AJUDAR" -> { Misc.clearScreen(); helpMenu(); }
             default -> { msgDefault(3); callMainMenu(); }
         }
     }
 
-    // Opção 1
+    public void bookRegMenu() {
+        String op = "";
+        listOptions.clear();
+        listOptions.add("1 - Cadastrar livros novos");
+        listOptions.add("2 - Alterar cadastro de livros");
+        listOptions.add("3 - Buscar livro (ID)");
+        listOptions.add("4 - Listar livros cadastrados");
+        listOptions.add("5 - Deletar livro (ID)");
+        listOptions.add("6 - Voltar ao menu anterior");
+
+        op = baseMsg("Cadastro de livros", listOptions);
+        switch (op) {
+            case "1" -> { Misc.clearScreen(); view.callBookRegister(); }
+            case "2" -> { }
+            case "3" -> { Misc.clearScreen(); view.searchID(); }
+            case "6" -> { Misc.clearScreen(); callMainMenu(); }
+            default -> { msgDefault(3); bookBorrow(); }
+        }
+    }
+
     public void bookBorrow() {
         String op = "";
         listOptions.clear();
@@ -131,21 +147,5 @@ public class MainMenu {
             default -> { msgDefault(3); bookBorrow(); }
         }
     }
-
-    // Opção 2
-    public void bookRegMenu() {
-        String op = "";
-        listOptions.clear();
-        listOptions.add("1 - Cadastrar livros novos");
-        listOptions.add("2 - Alterar cadastro de livros");
-        listOptions.add("3 - Voltar ao menu anterior");
-
-        op = baseMsg("Cadastro de livros", listOptions);
-        switch (op) {
-            case "1" -> { Misc.clearScreen(); view.callBookRegister(); }
-            case "2" -> { }
-            case "3" -> { Misc.clearScreen(); callMainMenu(); }
-            default -> { msgDefault(3); bookBorrow(); }
-        }
-    }
 }
+

@@ -28,14 +28,13 @@ public class ApplicationSistemaDeGestaoDeBiblioteca implements CommandLineRunner
 		
 		// Inicialização da CLI
 		Scanner scanner = new Scanner(System.in);
-		MainMenu sistema = new MainMenu(controller, scanner);
+		MainMenu sistema = new MainMenu(scanner);
 
 		// Inicializando view com instancia de sistema e settando view no sistema
-		View view = new View(sistema);
+		View view = new View(sistema, controller, scanner);
 		sistema.setView(view);
 
 		// E comeeeeeça a partida (inicializando sistema)
 		sistema.callMainMenu();
 	}
-
 }

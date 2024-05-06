@@ -9,14 +9,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 import com.econeigigobhoood.sgb.model.Livro;
 import com.econeigigobhoood.sgb.model.Tables;
 
 public  class Controller implements Tables {
-    private DefaultTableModel modelo = new DefaultTableModel();
     private Connection conexion;
        
     // ====================================
@@ -63,37 +60,16 @@ public  class Controller implements Tables {
         }
     }
     
-    public DefaultTableModel table() throws SQLException {
-        //DefaultTableModel modelo = new DefaultTableModel(); // Inicializa o modelo de tabela
-    
-        try {
-            conectar();
-            ResultSet resultado = executarSQL("SELECT * FROM Livros;"); // Consulta SQL para selecionar todos os livros
-            if (resultado != null) {
-                while (resultado.next()) {
-                    int IdLivro = resultado.getInt("IdLivro");
-                    String Nome = resultado.getString("Nome");
-                    String Autor = resultado.getString("Autor");
-                    int Paginas = resultado.getInt("Paginas");
-                    String Status = resultado.getString("Status");
-    
-                    Object[] fila = { IdLivro, Nome, Autor, Paginas, Status };
-                    modelo.addRow(fila);
-                    System.out.println("Dados do Livro");
-                    System.out.println("IdLivro:"+ IdLivro);
-                    System.out.println("Livro:"+ Nome);
-                    System.out.println("Autor:"+ Autor);
-                    System.out.println("Paginas:"+ Paginas);
-                    System.out.println("Status:"+ Status);
-                    System.out.println("--------------------");// Adiciona uma nova linha com os dados do livro ao modelo de tabela
-                }
-            }
-        } catch (Exception e) {
+    // ============================================
+    // ======= OPERAÇÕES NO BANCO DE DADOS ========
+    // ============================================
+    public void limpaBancoH2() {
+        try (Connection conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
+        Statement st = conn.createStatement()) {
+            st.execute("DROP ALL OBJECTS DELETE FILES");
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            desconectar();
         }
-        return modelo; // Retorna o modelo preenchido com os dados dos livros
     }
     
     // ===============================================
@@ -101,7 +77,7 @@ public  class Controller implements Tables {
     // ===============================================
     //Conexão de MainMenu para Controller
     // Método de cadastro de livro no banco de dados
-    public void insertarLivro(Livro entidade) throws SQLException {
+    public void insertarLivro(Livro entidade) {
         try {
             conectar();
             String consulta = "INSERT INTO Livros (Nome, Autor, Paginas, Status) VALUES (?, ?, ?, ?)";
@@ -112,7 +88,6 @@ public  class Controller implements Tables {
             statement.setString(4, "Em estoque");
 
             statement.executeUpdate();
-            JOptionPane.showMessageDialog(null, "O Livro Incluido foi o: " + entidade.getNome());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -121,7 +96,7 @@ public  class Controller implements Tables {
     }
 
     public void excluiLivro(int id) {
-        String query = "DELETE FROM Livros WHERE id = ?";
+        String query = "DELETE FROM Livros WHERE IdLivro = ?";
         
         try {
             conectar();
@@ -137,7 +112,7 @@ public  class Controller implements Tables {
     }
 
     public Livro buscaLivro(int id) {
-        String query = "SELECT * FROM Livros WHERE id = ?";
+        String query = "SELECT * FROM Livros WHERE IdLivro = ?";
         
         try {
             conectar();
@@ -165,7 +140,7 @@ public  class Controller implements Tables {
     }
 
     public void atualizarLivro(Livro entidade) {
-        String query = "UPDATE Livros SET Nome = ?, Autor = ?, Paginas = ? WHERE id = ?";
+        String query = "UPDATE Livros SET Nome = ?, Autor = ?, Paginas = ? WHERE IdLivro = ?";
 
         try {
             conectar();
@@ -217,7 +192,7 @@ public  class Controller implements Tables {
     // ========= OPERAÇÕES EM EMPRESTADO ==========
     // ============================================
     public void emprestaLivro(int id) {
-        String query = "UPDATE Livros SET Status = ? WHERE Idlivro = ?";
+        String query = "UPDATE Livros SET Status = ? WHERE IdLivro = ?";
         
         try {
             conectar();
@@ -235,7 +210,7 @@ public  class Controller implements Tables {
     }
 
     public void devolveLivro(int id) {
-        String query = "UPDATE Livros SET Status = ? WHERE Idlivro = ?";
+        String query = "UPDATE Livros SET Status = ? WHERE IdLivro = ?";
         
         try {
             conectar();
@@ -273,7 +248,6 @@ public  class Controller implements Tables {
 
                 livros.add (livro);
             }
-
             return livros;
         } catch (Exception e) {
             e.printStackTrace();
