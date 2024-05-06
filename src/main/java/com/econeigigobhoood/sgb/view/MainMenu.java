@@ -26,7 +26,6 @@ public class MainMenu {
         Misc.clearScreen();
     }
 
-    @SuppressWarnings("resource")
     private void helpMenu() {
         Misc.text("**** Sistema de Gestão de Biblioteca ****\n");
         Misc.text("=========== Tela de ajuda ===========\n\n");
@@ -89,7 +88,6 @@ public class MainMenu {
         Misc.text("**** Sistema de Gestão de Biblioteca ****\n");
 
         Misc.text("=========== %s ===========\n\n", nameScreen);
-        Misc.text("Dica: Para receber ajuda escreva AJUDAR.\n\n");
     }
 
     // Menu inicial é este aqui.
