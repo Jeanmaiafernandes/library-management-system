@@ -86,7 +86,7 @@ public class MainMenu {
     }
 
     protected void baseMsgFunc(String nameScreen) {
-        Misc.text("**** Sistema de Gestão de Bibliotca ****\n");
+        Misc.text("**** Sistema de Gestão de Biblioteca ****\n");
 
         Misc.text("=========== %s ===========\n\n", nameScreen);
         Misc.text("Dica: Para receber ajuda escreva AJUDAR.\n\n");
@@ -116,17 +116,19 @@ public class MainMenu {
         String op = "";
         listOptions.clear();
         listOptions.add("1 - Cadastrar livros novos");
-        listOptions.add("2 - Alterar cadastro de livros");
+        listOptions.add("2 - Listar livros cadastrados");
         listOptions.add("3 - Buscar livro (ID)");
-        listOptions.add("4 - Listar livros cadastrados");
+        listOptions.add("4 - Alterar cadastro de livros");
         listOptions.add("5 - Deletar livro (ID)");
         listOptions.add("6 - Voltar ao menu anterior");
 
         op = baseMsg("Cadastro de livros", listOptions);
         switch (op) {
             case "1" -> { Misc.clearScreen(); view.callBookRegister(); }
-            case "2" -> { }
+            case "2" -> { Misc.clearScreen(); view.bookListing(); }
             case "3" -> { Misc.clearScreen(); view.searchID(); }
+            case "4" -> { Misc.clearScreen(); view.callUpdateBook(); }
+            case "5" -> {  }
             case "6" -> { Misc.clearScreen(); callMainMenu(); }
             default -> { msgDefault(3); bookBorrow(); }
         }

@@ -4,6 +4,7 @@ import com.econeigigobhoood.sgb.controller.Controller;
 import com.econeigigobhoood.sgb.controller.Misc;
 import com.econeigigobhoood.sgb.model.Livro;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class View {
@@ -19,59 +20,6 @@ public class View {
         this.scanner = scanner;
     }
     
-    public void searchID() {
-        mainMenu.baseMsgFunc(" Buscador de livro ");
-
-        Misc.text("Insira o ID do livro a ser consultado: ");
-        int id = scanner.nextInt();
-        Livro livro = controller.buscaLivro(id);
-        if(livro != null) {
-            System.out.println(">>> Detalhes do livro <<<");
-            System.out.println("ID " + livro.getIdlivro());
-            System.out.println("Nome: " + livro.getNome());
-            System.out.println("Autor: " + livro.getAutor());
-            System.out.println("Número de páginas: " + livro.getPaginas());
-
-            mainMenu.callMainMenu();
-        } else {
-            Misc.clearScreen();
-            Misc.text("Livro não encontrado ou ID inexistente");
-            Misc.delay(3);
-
-            mainMenu.callMainMenu();
-        }
-    }
-
-    public void callUpdateBook() {
-        mainMenu.baseMsgFunc("Alterar cadastro de livros");
-
-        Misc.text("1 - Pesquisa por ID");
-        Misc.text("2 - Voltar a tela 'Cadastro de livros'");
-
-        Object rawInputUser = Misc.inputUser();
-        int intInputUser = 0;
-
-        if(rawInputUser instanceof Integer) {
-            intInputUser = (Integer) (rawInputUser);
-        } else {
-            Misc.clearScreen();
-            Misc.text("Por favor digite apenas número");
-            Misc.delay(3);
-            callUpdateBook();
-        }
-
-        switch (intInputUser) {
-            case 1 -> { searchID(); Misc.clearScreen(); }
-            case 2 -> { Misc.clearScreen(); mainMenu.bookRegMenu(); } 
-            default -> { 
-                Misc.clearScreen();    
-                Misc.text("Opção invalida");
-                Misc.delay(3);
-                callUpdateBook(); 
-            }
-        }
-    }
-
     public void callBookRegister() {
         // Se o arquivo tmp estiver vazio, significa que é um novo cadastro
         mainMenu.baseMsgFunc("Cadastrar livros novos");
@@ -115,11 +63,87 @@ public class View {
         }
     }
 
+    public void bookListing() {
+        mainMenu.baseMsgFunc(" Listagem de livros cadastrados ");
+
+        List<Livro> livros = controller.listaLivros();
+        System.out.println("=== Livros Cadastrados ===");
+
+        if (!livros.isEmpty()) {
+            for (Livro livro : livros) {
+                System.out.println("ID: " + livro.getIdlivro() + ", Nome: " + livro.getNome());
+            }
+        } else {
+            System.out.println("Não há livros cadastrados.");
+        }
+        System.out.println("===========================\n");
+        mainMenu.callMainMenu();
+    }
+
+    public void searchID() {
+        mainMenu.baseMsgFunc(" Buscador de livro ");
+
+        Misc.text("Insira o ID do livro a ser consultado: ");
+        int id = scanner.nextInt();
+        Livro livro = controller.buscaLivro(id);
+        if(livro != null) {
+            System.out.println(">>> Detalhes do livro <<<");
+            System.out.println("ID " + livro.getIdlivro());
+            System.out.println("Nome: " + livro.getNome());
+            System.out.println("Autor: " + livro.getAutor());
+            System.out.println("Número de páginas: " + livro.getPaginas());
+
+            mainMenu.callMainMenu();
+        } else {
+            Misc.clearScreen();
+            Misc.text("Livro não encontrado ou ID inexistente");
+            Misc.delay(3);
+
+            mainMenu.callMainMenu();
+        }
+    }
+
+    public void callUpdateBook() {
+        mainMenu.baseMsgFunc("Alterar cadastro do livro");
+
+        Misc.text("Insira o ID do livro a ser alterado: ");
+        int id = scanner.nextInt();
+        Livro livro = controller.buscaLivro(id);
+
+        if (livro != null) {
+            System.out.println(">>> Livro selecionado <<<");
+            System.out.println("ID " + livro.getIdlivro());
+            System.out.println("Nome: " + livro.getNome());
+            System.out.println("Autor: " + livro.getAutor());
+            System.out.println("Número de páginas: " + livro.getPaginas());
+            System.out.println(">>> Atualize os valores <<<");
+            
+            scanner.nextLine(); // Limpar buffer
+            System.out.println("Digite o novo nome do livro: ");
+            String nome = scanner.nextLine();
+            livro.setNome(nome);
+            System.out.println("Digite o novo autor do livro: ");
+            String autor = scanner.nextLine();
+            livro.setAutor(autor);
+            System.out.println("Digite o novo número de páginas do livro: ");
+            int numPaginas = scanner.nextInt();
+            livro.setPaginas(numPaginas);
+            controller.atualizarLivro(livro);
+            System.out.println("Livro atualizado com sucesso!");
+
+            mainMenu.callMainMenu();
+        } else {
+            System.out.println("Livro não encontrado!");
+
+            mainMenu.callMainMenu();
+        }
+    }
+
     public void deleteAll() {
         System.out.println("Essa operação deletará TODOS OS DADOS inseridos no banco de dados, tem certeza que deseja realizar essa operação? [S/N]: ");
         String op = scanner.nextLine();
         op = op.toUpperCase();
-        
+
         if (op.equals("S")) {
             controller.limpaBancoH2();
             mainMenu.callMainMenu();
