@@ -71,7 +71,7 @@ public class View {
 
         if (!livros.isEmpty()) {
             for (Livro livro : livros) {
-                System.out.println("ID: " + livro.getIdlivro() + ", Nome: " + livro.getNome());
+                System.out.println("ID: " + livro.getIdlivro() + ", Nome: " + livro.getNome() + ", Status: " + livro.getStatus());
             }
         } else {
             System.out.println("Não há livros cadastrados.");
@@ -93,7 +93,6 @@ public class View {
         } else {
             Misc.clearScreen();
             Misc.text("Livro não encontrado ou ID inexistente");
-            Misc.delay(3);
 
             mainMenu.callMainMenu();
         }
@@ -164,7 +163,51 @@ public class View {
         } else {
             Misc.clearScreen();
             Misc.text("Livro não encontrado ou ID inexistente");
-            Misc.delay(3);
+
+            mainMenu.callMainMenu();
+        }
+    }
+
+    public void lendBook() {
+        mainMenu.baseMsgFunc("Emprestar livro");
+
+        Misc.text("Insira o ID do livro a ser emprestado: ");
+        int id = scanner.nextInt();
+        Livro livro = controller.buscaLivro(id);
+        if(livro != null) {
+            System.out.println(">>> Livro selecionado <<<");
+            infoBook(livro);
+
+            String emprestado = livro.getStatus();
+            if (!emprestado.equals("Emprestado")) {
+                System.out.println("Este livro está disponível para ser emprestado!");
+
+                System.out.println("Deseja continuar? [S/N]: ");
+                scanner.nextLine(); // Limpar buffer
+                String op = scanner.nextLine();
+                op = op.toUpperCase();
+        
+                if (op.equals("S")) {
+                    controller.emprestaLivro(id);
+                    Misc.text("Livro emprestado com sucesso!");
+    
+                    mainMenu.callMainMenu();
+                } else if (op.equals("N")) {
+                    Misc.clearScreen();
+                    Misc.text("Operação cancelada!");
+                    mainMenu.callMainMenu();
+                } else {
+                    Misc.clearScreen();
+                    Misc.text("Escolha invalida, operação cancelada!");
+                    mainMenu.callMainMenu();
+                }
+            } else {
+                System.out.println("Livro já está emprestado! Aguarde devolução.");
+                mainMenu.callMainMenu();
+            }
+        } else {
+            Misc.clearScreen();
+            Misc.text("Livro não encontrado ou ID inexistente");
 
             mainMenu.callMainMenu();
         }
@@ -195,5 +238,6 @@ public class View {
         System.out.println("Nome: " + livro.getNome());
         System.out.println("Autor: " + livro.getAutor());
         System.out.println("Número de páginas: " + livro.getPaginas());
+        System.out.println("Status: " + livro.getStatus());
     }
 }

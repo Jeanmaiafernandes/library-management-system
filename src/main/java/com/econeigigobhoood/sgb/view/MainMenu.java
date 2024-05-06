@@ -98,15 +98,17 @@ public class MainMenu {
         listOptions.clear();
         listOptions.add("1 - Operações de cadastro de livros");
         listOptions.add("2 - Empréstimo de livros");
-        listOptions.add("3 - Limpar banco de dados H2 [CUIDADO, JOVEM GAFANHOTO]");
-        listOptions.add("4 - Sair do programa");
+        listOptions.add("3 - Listar livros cadastrados");
+        listOptions.add("4 - Limpar banco de dados H2 [CUIDADO, JOVEM GAFANHOTO]");
+        listOptions.add("5 - Sair do programa");
 
         op = baseMsg("Menu principal", listOptions);
         switch (op) {
             case "1" -> { Misc.clearScreen(); bookRegMenu(); }
             case "2" -> { Misc.clearScreen(); bookBorrow(); }
-            case "3" -> { Misc.clearScreen(); view.deleteAll(); }
-            case "4" -> { Misc.clearScreen(); Misc.text("Sistema fechado, até logo!\n\n"); System.exit(0); }
+            case "3" -> { Misc.clearScreen(); view.bookListing(); }
+            case "4" -> { Misc.clearScreen(); view.deleteAll(); }
+            case "5" -> { Misc.clearScreen(); Misc.text("Sistema fechado, até logo!\n\n"); System.exit(0); }
             case "AJUDAR" -> { Misc.clearScreen(); helpMenu(); }
             default -> { msgDefault(3); callMainMenu(); }
         }
@@ -137,15 +139,17 @@ public class MainMenu {
     public void bookBorrow() {
         String op = "";
         listOptions.clear();
-        listOptions.add("1 - Entrega de livros");
-        listOptions.add("2 - Devolução de livros");
-        listOptions.add("3 - Voltar ao menu anterior");
+        listOptions.add("1 - Emprestar livro");
+        listOptions.add("2 - Devolver livro");
+        listOptions.add("3 - Listar livros cadastrados");
+        listOptions.add("4 - Voltar ao menu anterior");
 
         op = baseMsg("Empréstimo de livros", listOptions);
         switch (op) {
-            case "1" -> { }
-            case "2" -> { }
-            case "3" -> { Misc.clearScreen(); callMainMenu(); }
+            case "1" -> { Misc.clearScreen(); view.lendBook(); }
+            case "2" -> {  }
+            case "3" -> { Misc.clearScreen(); view.bookListing(); }
+            case "4" -> { Misc.clearScreen(); callMainMenu(); }
             default -> { msgDefault(3); bookBorrow(); }
         }
     }
