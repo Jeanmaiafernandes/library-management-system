@@ -213,6 +213,49 @@ public class View {
         }
     }
 
+    public void receiveLendBook() {
+        mainMenu.baseMsgFunc("Devolver livro");
+
+        Misc.text("Insira o ID do livro devolvido: ");
+        int id = scanner.nextInt();
+        Livro livro = controller.buscaLivro(id);
+        if(livro != null) {
+            System.out.println(">>> Livro selecionado <<<");
+            infoBook(livro);
+
+            String emprestado = livro.getStatus();
+            if (emprestado.equals("Emprestado")) {
+                System.out.println("Este livro está emprestado, deseja registrar a devolução? [S/N]: ");
+                scanner.nextLine(); // Limpar buffer
+                String op = scanner.nextLine();
+                op = op.toUpperCase();
+        
+                if (op.equals("S")) {
+                    controller.devolveLivro(id);
+                    Misc.text("Livro devolvido com sucesso!");
+    
+                    mainMenu.callMainMenu();
+                } else if (op.equals("N")) {
+                    Misc.clearScreen();
+                    Misc.text("Operação cancelada!");
+                    mainMenu.callMainMenu();
+                } else {
+                    Misc.clearScreen();
+                    Misc.text("Escolha invalida, operação cancelada!");
+                    mainMenu.callMainMenu();
+                }
+            } else {
+                System.out.println("Livro não está emprestado!");
+                mainMenu.callMainMenu();
+            }
+        } else {
+            Misc.clearScreen();
+            Misc.text("Livro não encontrado ou ID inexistente");
+
+            mainMenu.callMainMenu();
+        }
+    }
+
     public void deleteAll() {
         System.out.println("Essa operação deletará TODOS OS DADOS inseridos no banco de dados, tem certeza que deseja realizar essa operação? [S/N]: ");
         String op = scanner.nextLine();
@@ -220,7 +263,7 @@ public class View {
 
         if (op.equals("S")) {
             controller.limpaBancoH2();
-            mainMenu.callMainMenu();
+            Misc.text("Sistema fechado e Banco de Dados limpo, até logo!\n\n");
         } else if (op.equals("N")) {
             Misc.clearScreen();
             Misc.text("Operação cancelada!");

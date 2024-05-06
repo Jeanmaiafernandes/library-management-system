@@ -28,7 +28,7 @@ public class MainMenu {
 
     @SuppressWarnings("resource")
     private void helpMenu() {
-        Misc.text("**** Sistema de Gestão de Bibliotca ****\n");
+        Misc.text("**** Sistema de Gestão de Biblioteca ****\n");
         Misc.text("=========== Tela de ajuda ===========\n\n");
         Misc.text(
                 "Para utilizar o Sistema de Gestão de Livros será apresentado opções de cada tela presente ao usuário, cada opção tem um número correspondente");
@@ -58,7 +58,7 @@ public class MainMenu {
         String op = "";
 
         Scanner scannerInput = new Scanner(System.in);
-        Misc.text("**** Sistema de Gestão de Bibliotca ****\n");
+        Misc.text("**** Sistema de Gestão de Biblioteca ****\n");
 
         Misc.text("Selecione a opção desejada digitando o número correspondente:\n");
 
@@ -99,16 +99,16 @@ public class MainMenu {
         listOptions.add("1 - Operações de cadastro de livros");
         listOptions.add("2 - Empréstimo de livros");
         listOptions.add("3 - Listar livros cadastrados");
-        listOptions.add("4 - Limpar banco de dados H2 [CUIDADO, JOVEM GAFANHOTO]");
-        listOptions.add("5 - Sair do programa");
+        listOptions.add("4 - Sair do programa e MANTER Banco de Dados H2");
+        listOptions.add("5 - Sair do programa e LIMPAR Banco de Dados H2");
 
         op = baseMsg("Menu principal", listOptions);
         switch (op) {
             case "1" -> { Misc.clearScreen(); bookRegMenu(); }
             case "2" -> { Misc.clearScreen(); bookBorrow(); }
             case "3" -> { Misc.clearScreen(); view.bookListing(); }
-            case "4" -> { Misc.clearScreen(); view.deleteAll(); }
-            case "5" -> { Misc.clearScreen(); Misc.text("Sistema fechado, até logo!\n\n"); System.exit(0); }
+            case "4" -> { Misc.clearScreen(); Misc.text("Sistema fechado, até logo!\n\n"); System.exit(0); }
+            case "5" -> { Misc.clearScreen(); view.deleteAll(); System.exit(0); }
             case "AJUDAR" -> { Misc.clearScreen(); helpMenu(); }
             default -> { msgDefault(3); callMainMenu(); }
         }
@@ -147,11 +147,10 @@ public class MainMenu {
         op = baseMsg("Empréstimo de livros", listOptions);
         switch (op) {
             case "1" -> { Misc.clearScreen(); view.lendBook(); }
-            case "2" -> {  }
+            case "2" -> { Misc.clearScreen(); view.receiveLendBook(); }
             case "3" -> { Misc.clearScreen(); view.bookListing(); }
             case "4" -> { Misc.clearScreen(); callMainMenu(); }
             default -> { msgDefault(3); bookBorrow(); }
         }
     }
 }
-
