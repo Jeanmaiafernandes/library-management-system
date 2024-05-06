@@ -11,14 +11,12 @@ import java.util.Scanner;
 public class Misc {
 
     // Tratativas de erros
-    public static final String SCANNER_INPUT_ERROR = "\n\nERRO: Não foi possível ler a entrada de usuário em 'Scanner'.";
-    public static final String SCANNER_INVALID_ERROR = "\n\nERRO: A entrada do usuário foi invalida, digitou algo errado?";
-    public static final String DATABASE_CONNECTION_ERROR = "\n\nERRO: Não foi possível conectar ao Banco de Dados.";
-    public static final String DATABASE_LIST_ERROR = "\n\nERRO: Não foi possível consultar cadastro de livros, banco de dados com problemas de listagem";
-    public static final String FILE_NOT_FOUND_ERROR = "\n\nERRO: Arquivo não encontrado.";
-    public static final String FILE_NOT_WRITED_ERROR = "\n\nERRO: O arquivo não pode ser salvo.";
-    public static final String FILE_NOT_DELETED_ERROR = "\n\nERRO: Não foi possível excluir o arquivo.";
-
+    public static final String SCANNER_INPUT_ERROR = "ERROR: Unable to set user input on Scanner.";
+    public static final String SCANNER_INVALID_ERROR = "ERROR: user input was invalid on Scanner. Wrong variable type?";
+    public static final String DATABASE_CONNECTION_ERROR = "ERROR: Unable to connect to the database.";
+    public static final String FILE_NOT_FOUND_ERROR = "ERROR: File not found.";
+    public static final String FILE_NOT_WRITED_ERROR = "ERROR: File can't be saved.";
+    public static final String FILE_NOT_DELETED_ERROR = "ERROR: File can't be deleted.";
 
     private static Scanner scanner = new Scanner(System.in);
 
