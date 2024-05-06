@@ -87,11 +87,7 @@ public class View {
         int id = scanner.nextInt();
         Livro livro = controller.buscaLivro(id);
         if(livro != null) {
-            System.out.println(">>> Detalhes do livro <<<");
-            System.out.println("ID " + livro.getIdlivro());
-            System.out.println("Nome: " + livro.getNome());
-            System.out.println("Autor: " + livro.getAutor());
-            System.out.println("Número de páginas: " + livro.getPaginas());
+            infoBook(livro);
 
             mainMenu.callMainMenu();
         } else {
@@ -112,12 +108,9 @@ public class View {
 
         if (livro != null) {
             System.out.println(">>> Livro selecionado <<<");
-            System.out.println("ID " + livro.getIdlivro());
-            System.out.println("Nome: " + livro.getNome());
-            System.out.println("Autor: " + livro.getAutor());
-            System.out.println("Número de páginas: " + livro.getPaginas());
+            infoBook(livro);
             System.out.println(">>> Atualize os valores <<<");
-            
+
             scanner.nextLine(); // Limpar buffer
             System.out.println("Digite o novo nome do livro: ");
             String nome = scanner.nextLine();
@@ -134,6 +127,44 @@ public class View {
             mainMenu.callMainMenu();
         } else {
             System.out.println("Livro não encontrado!");
+
+            mainMenu.callMainMenu();
+        }
+    }
+
+    public void deleteBook() {
+        mainMenu.baseMsgFunc("Deletar livro cadastrado");
+
+        Misc.text("Insira o ID do livro a ser deletado: ");
+        int id = scanner.nextInt();
+        Livro livro = controller.buscaLivro(id);
+        if(livro != null) {
+            System.out.println(">>> Livro selecionado <<<");
+            infoBook(livro);
+
+            System.out.println("Deseja continuar? [S/N]: ");
+            scanner.nextLine(); // Limpar buffer
+            String op = scanner.nextLine();
+            op = op.toUpperCase();
+    
+            if (op.equals("S")) {
+                controller.excluiLivro(id);
+                Misc.text("Livro deletado com sucesso!");
+
+                mainMenu.callMainMenu();
+            } else if (op.equals("N")) {
+                Misc.clearScreen();
+                Misc.text("Operação cancelada!");
+                mainMenu.callMainMenu();
+            } else {
+                Misc.clearScreen();
+                Misc.text("Escolha invalida, operação cancelada!");
+                mainMenu.callMainMenu();
+            }
+        } else {
+            Misc.clearScreen();
+            Misc.text("Livro não encontrado ou ID inexistente");
+            Misc.delay(3);
 
             mainMenu.callMainMenu();
         }
@@ -156,5 +187,13 @@ public class View {
             Misc.text("Escolha invalida, operação cancelada!");
             mainMenu.callMainMenu();
         }
+    }
+
+    public void infoBook(Livro livro) {
+        System.out.println(">>> Detalhes do livro <<<");
+        System.out.println("ID " + livro.getIdlivro());
+        System.out.println("Nome: " + livro.getNome());
+        System.out.println("Autor: " + livro.getAutor());
+        System.out.println("Número de páginas: " + livro.getPaginas());
     }
 }

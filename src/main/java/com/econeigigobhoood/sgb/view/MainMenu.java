@@ -128,7 +128,7 @@ public class MainMenu {
             case "2" -> { Misc.clearScreen(); view.bookListing(); }
             case "3" -> { Misc.clearScreen(); view.searchID(); }
             case "4" -> { Misc.clearScreen(); view.callUpdateBook(); }
-            case "5" -> {  }
+            case "5" -> { Misc.clearScreen(); view.deleteBook(); }
             case "6" -> { Misc.clearScreen(); callMainMenu(); }
             default -> { msgDefault(3); bookBorrow(); }
         }
