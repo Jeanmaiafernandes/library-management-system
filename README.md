@@ -1,5 +1,3 @@
-@ -0,0 +1,51 @@
-
 # Sistema de Biblioteca
 
 Este projeto implementa um sistema simples de biblioteca em Java, utilizando a arquitetura MVC e persistindo dados em um banco de dados H2 em memória. O sistema apresenta um menu na interface CLI (Command Line Interface) com as seguintes opções:
